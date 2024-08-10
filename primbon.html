@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <title>
+    Primbom Features | Nexon APIs
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="robots" content="index, follow">
+
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
+  <link href="assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<style>
+  .loading-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, #1e3c72, #2a5298, #6b88b4, #a8c0ff);
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    color: #191654;
+  }
+
+  #svg {
+    height: 150px;
+    width: 150px;
+    stroke: white;
+    fill-opacity: 0;
+    stroke-width: 3px;
+    stroke-dasharray: 4500;
+    animation: draw 8s ease;
+  }
+
+  @keyframes draw {
+    0% {
+      stroke-dashoffset: 4500;
+    }
+
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .name-container {
+    height: 30px;
+    overflow: hidden;
+  }
+
+  .logo-name {
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    margin-left: 20px;
+    font-weight: bolder;
+  }
+</style>
+
+<body>
+  <div class="loading-page" id="preloader">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+      <path
+        d="M415.44 512h-95.11L212.12 357.46v91.1L125.69 512H28V29.82L68.47 0h108.05l123.74 176.13V63.45L386.69 0h97.69v461.5zM38.77 35.27V496l72-52.88V194l215.5 307.64h84.79l52.35-38.17h-78.27L69 13zm82.54 466.61l80-58.78v-101l-79.76-114.4v220.94L49 501.89h72.34zM80.63 10.77l310.6 442.57h82.37V10.77h-79.75v317.56L170.91 10.77zM311 191.65l72 102.81V15.93l-72 53v122.72z" />
+    </svg>
+
+
+    <div class="name-container">
+      <div class="logo-name">Nexon APIs</div>
+    </div>
+  </div>
+  <div id="main-wrapper">
+    <div class="nav-header">
+      <a href="index.html" class="brand-logo">
+        <svg class="logo-abbr" width="32" height="30" viewBox="0 0 32 30" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m16.8264 6.1466m-17 9a1 1 0 0030 0M29.8971 15.1477a1 1 0 00-30 0m6 12 0-14c1-5 6-7 11-7l0 14c2 0 4-2 4-3l0-12c0-1 1-2 3-2l0 14c0 2-5 7-11 7l0-14c-2 0-3 1-4 3l0 12c0 1-2 2-3 2m-4-12"
+            fill="white" />
+        </svg>
+        <svg class="brand-title" width="111" height="24" viewBox="0 0 111 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect width="70" #0afc32="31" transform="translate(0 1)" fill="white" />
+          <text x="5" y="21" fill="white" font-size="17">NEXON</text>
+          <text x="75" y="21" fill="white" font-size="17">API</text>
+        </svg>
+      </a>
+      <div class="nav-control">
+        <div class="hamburger">
+          <span class="line">
+            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10.7468 5.58925C11.0722 5.26381 11.0722 4.73617 10.7468 4.41073C10.4213 4.0853 9.89369 4.0853 9.56826 4.41073L4.56826 9.41073C4.25277 9.72622 4.24174 10.2342 4.54322 10.5631L9.12655 15.5631C9.43754 15.9024 9.96468 15.9253 10.3039 15.6143C10.6432 15.3033 10.6661 14.7762 10.3551 14.4369L6.31096 10.0251L10.7468 5.58925Z"
+                fill="#452B90" />
+              <path opacity="0.3"
+                d="M16.5801 5.58924C16.9056 5.26381 16.9056 4.73617 16.5801 4.41073C16.2547 4.0853 15.727 4.0853 15.4016 4.41073L10.4016 9.41073C10.0861 9.72622 10.0751 10.2342 10.3766 10.5631L14.9599 15.5631C15.2709 15.9024 15.798 15.9253 16.1373 15.6143C16.4766 15.3033 16.4995 14.7762 16.1885 14.4369L12.1443 10.0251L16.5801 5.58924Z"
+                fill="#452B90" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="header">
+      <div class="header-content">
+        <nav class="navbar navbar-expand">
+          <div class="collapse navbar-collapse justify-content-between">
+            <div class="header-left">
+              <div class="dashboard_bar">
+                Primbom Features
+              </div>
+            </div>
+            <div class="header-right d-flex align-items-center">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown notification_dropdown">
+                  <a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
+                    <svg id="icon-light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path
+                          d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z"
+                          fill="#000000" fill-rule="nonzero" />
+                        <path
+                          d="M19.5,10.5 L21,10.5 C21.8284271,10.5 22.5,11.1715729 22.5,12 C22.5,12.8284271 21.8284271,13.5 21,13.5 L19.5,13.5 C18.6715729,13.5 18,12.8284271 18,12 C18,11.1715729 18.6715729,10.5 19.5,10.5 Z M16.0606602,5.87132034 L17.1213203,4.81066017 C17.7071068,4.22487373 18.6568542,4.22487373 19.2426407,4.81066017 C19.8284271,5.39644661 19.8284271,6.34619408 19.2426407,6.93198052 L18.1819805,7.99264069 C17.5961941,8.57842712 16.6464466,8.57842712 16.0606602,7.99264069 C15.4748737,7.40685425 15.4748737,6.45710678 16.0606602,5.87132034 Z M16.0606602,18.1819805 C15.4748737,17.5961941 15.4748737,16.6464466 16.0606602,16.0606602 C16.6464466,15.4748737 17.5961941,15.4748737 18.1819805,16.0606602 L19.2426407,17.1213203 C19.8284271,17.7071068 19.8284271,18.6568542 19.2426407,19.2426407 C18.6568542,19.8284271 17.7071068,19.8284271 17.1213203,19.2426407 L16.0606602,18.1819805 Z M3,10.5 L4.5,10.5 C5.32842712,10.5 6,11.1715729 6,12 C6,12.8284271 5.32842712,13.5 4.5,13.5 L3,13.5 C2.17157288,13.5 1.5,12.8284271 1.5,12 C1.5,11.1715729 2.17157288,10.5 3,10.5 Z M12,1.5 C12.8284271,1.5 13.5,2.17157288 13.5,3 L13.5,4.5 C13.5,5.32842712 12.8284271,6 12,6 C11.1715729,6 10.5,5.32842712 10.5,4.5 L10.5,3 C10.5,2.17157288 11.1715729,1.5 12,1.5 Z M12,18 C12.8284271,18 13.5,18.6715729 13.5,19.5 L13.5,21 C13.5,21.8284271 12.8284271,22.5 12,22.5 C11.1715729,22.5 10.5,21.8284271 10.5,21 L10.5,19.5 C10.5,18.6715729 11.1715729,18 12,18 Z M4.81066017,4.81066017 C5.39644661,4.22487373 6.34619408,4.22487373 6.93198052,4.81066017 L7.99264069,5.87132034 C8.57842712,6.45710678 8.57842712,7.40685425 7.99264069,7.99264069 C7.40685425,8.57842712 6.45710678,8.57842712 5.87132034,7.99264069 L4.81066017,6.93198052 C4.22487373,6.34619408 4.22487373,5.39644661 4.81066017,4.81066017 Z M4.81066017,19.2426407 C4.22487373,18.6568542 4.22487373,17.7071068 4.81066017,17.1213203 L5.87132034,16.0606602 C6.45710678,15.4748737 7.40685425,15.4748737 7.99264069,16.0606602 C8.57842712,16.6464466 8.57842712,17.5961941 7.99264069,18.1819805 L6.93198052,19.2426407 C6.34619408,19.8284271 5.39644661,19.8284271 4.81066017,19.2426407 Z"
+                          fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                      </g>
+                    </svg>
+                    <svg id="icon-dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path
+                          d="M12.0700837,4.0003006 C11.3895108,5.17692613 11,6.54297551 11,8 C11,12.3948932 14.5439081,15.9620623 18.9299163,15.9996994 C17.5467214,18.3910707 14.9612535,20 12,20 C7.581722,20 4,16.418278 4,12 C4,7.581722 7.581722,4 12,4 C12.0233848,4 12.0467462,4.00010034 12.0700837,4.0003006 Z"
+                          fill="#000000" />
+                      </g>
+                    </svg>
+                  </a>
+                </li>
+                <li class="nav-item dropdown notification_dropdown">
+                  <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M17.5 12H19C19.8284 12 20.5 12.6716 20.5 13.5C20.5 14.3284 19.8284 15 19 15H6C5.17157 15 4.5 14.3284 4.5 13.5C4.5 12.6716 5.17157 12 6 12H7.5L8.05827 6.97553C8.30975 4.71226 10.2228 3 12.5 3C14.7772 3 16.6903 4.71226 16.9417 6.97553L17.5 12Z"
+                        fill="#222B40" />
+                      <path opacity="0.3"
+                        d="M14.5 18C14.5 16.8954 13.6046 16 12.5 16C11.3954 16 10.5 16.8954 10.5 18C10.5 19.1046 11.3954 20 12.5 20C13.6046 20 14.5 19.1046 14.5 18Z"
+                        fill="#222B40" />
+                    </svg>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <div id="DZ_W_Notification1" class="widget-media dz-scroll p-2" style="height:380px;">
+                      <ul class="timeline">
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="media me-2">
+                              <img alt="image" width="50" src="assets/images/avatar/nexon.png">
+                            </div>
+                            <div class="media-body">
+                              <h6 class="mb-1">Kens Ransyah</h6>
+                              <small class="d-block">Developed</small>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <a class="all-notification" href="javascript:void(0);">Thank To <i class="ti-arrow-end"></i></a>
+                  </div>
+                </li>
+                <li class="nav-item ps-3">
+                  <div class="dropdown header-profile2">
+                    <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <div class="header-info2 d-flex align-items-center">
+                        <div class="header-media">
+                          <img src="assets/images/avatar/nexon.png" alt="">
+                        </div>
+                      </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <div class="card border-0 mb-0">
+                        <div class="card-header py-2">
+                          <div class="products">
+                            <img src="assets/images/avatar/nexon.png" class="avatar avatar-md" alt="">
+                            <div>
+                              <h6>Kens Ransyah</h6>
+                              <span>Developed</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body px-0 py-2">
+                          <a href="profile" class="dropdown-item ai-icon ">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.9848 15.3462C8.11714 15.3462 4.81429 15.931 4.81429 18.2729C4.81429 20.6148 8.09619 21.2205 11.9848 21.2205C15.8524 21.2205 19.1543 20.6348 19.1543 18.2938C19.1543 15.9529 15.8733 15.3462 11.9848 15.3462Z"
+                                stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.9848 12.0059C14.5229 12.0059 16.58 9.94779 16.58 7.40969C16.58 4.8716 14.5229 2.81445 11.9848 2.81445C9.44667 2.81445 7.38857 4.8716 7.38857 7.40969C7.38 9.93922 9.42381 11.9973 11.9524 12.0059H11.9848Z"
+                                stroke="var(--primary)" stroke-width="1.42857" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            </svg>
+                            <span class="ms-2">Profile </span>
+                          </a>
+                        </div>
+                        <div class="card-footer px-0 py-2">
+                          <a href="settings" class="dropdown-item ai-icon ">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M20.8066 7.62355L20.1842 6.54346C19.6576 5.62954 18.4907 5.31426 17.5755 5.83866V5.83866C17.1399 6.09528 16.6201 6.16809 16.1307 6.04103C15.6413 5.91396 15.2226 5.59746 14.9668 5.16131C14.8023 4.88409 14.7139 4.56833 14.7105 4.24598V4.24598C14.7254 3.72916 14.5304 3.22834 14.17 2.85761C13.8096 2.48688 13.3145 2.2778 12.7975 2.27802H11.5435C11.0369 2.27801 10.5513 2.47985 10.194 2.83888C9.83666 3.19791 9.63714 3.68453 9.63958 4.19106V4.19106C9.62457 5.23686 8.77245 6.07675 7.72654 6.07664C7.40418 6.07329 7.08843 5.98488 6.8112 5.82035V5.82035C5.89603 5.29595 4.72908 5.61123 4.20251 6.52516L3.53432 7.62355C3.00838 8.53633 3.31937 9.70255 4.22997 10.2322V10.2322C4.82187 10.574 5.1865 11.2055 5.1865 11.889C5.1865 12.5725 4.82187 13.204 4.22997 13.5457V13.5457C3.32053 14.0719 3.0092 15.2353 3.53432 16.1453V16.1453L4.16589 17.2345C4.41262 17.6797 4.82657 18.0082 5.31616 18.1474C5.80575 18.2865 6.33061 18.2248 6.77459 17.976V17.976C7.21105 17.7213 7.73116 17.6515 8.21931 17.7821C8.70746 17.9128 9.12321 18.233 9.37413 18.6716C9.53867 18.9488 9.62708 19.2646 9.63043 19.5869V19.5869C9.63043 20.6435 10.4869 21.5 11.5435 21.5H12.7975C13.8505 21.5 14.7055 20.6491 14.7105 19.5961V19.5961C14.7081 19.088 14.9088 18.6 15.2681 18.2407C15.6274 17.8814 16.1154 17.6806 16.6236 17.6831C16.9451 17.6917 17.2596 17.7797 17.5389 17.9393V17.9393C18.4517 18.4653 19.6179 18.1543 20.1476 17.2437V17.2437L20.8066 16.1453C21.0617 15.7074 21.1317 15.1859 21.0012 14.6963C20.8706 14.2067 20.5502 13.7893 20.111 13.5366V13.5366C19.6717 13.2839 19.3514 12.8665 19.2208 12.3769C19.0902 11.8872 19.1602 11.3658 19.4153 10.9279C19.5812 10.6383 19.8213 10.3981 20.111 10.2322V10.2322C21.0161 9.70283 21.3264 8.54343 20.8066 7.63271V7.63271V7.62355Z"
+                                stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                              <circle cx="12.175" cy="11.889" r="2.63616" stroke="var(--primary)" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="ms-2">Settings </span>
+                          </a>
+                          <a href="redeemcode" class="dropdown-item ai-icon ">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M21 7H17.83C17.94 6.71 18 6.39 18 6C18 4.34 16.66 3 15 3C13.34 3 12 4.34 12 6C12 6.39 12.06 6.71 12.17 7H4C2.9 7 2 7.9 2 9V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V9C22 7.9 21.1 7 21 7ZM20 19H4V9H20V19ZM6 10H8V12H6V10ZM6 14H8V16H6V14ZM10 10H18V12H10V10ZM10 14H18V16H10V14Z"
+                                fill="var(--primary)" />
+                            </svg>
+                            <span class="ms-2">Redeem Code </span>
+                          </a>
+
+                          <a href="report" class="dropdown-item ai-icon">
+                            <svg class="login-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="#007bff"></path>
+                              <polyline points="8 7 3 12 8 17" stroke="#007bff"></polyline>
+                              <line x1="3" y1="12" x2="15" y2="12" stroke="#007bff"></line>
+                            </svg>
+                            <span class="ms-2" style="color: #007bff;">Login</span>
+                          </a>
+                          <a href="signup" class="dropdown-item ai-icon">
+                            <svg class="signup-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M12 5v14" stroke="#28a745"></path>
+                              <path d="M5 12h14" stroke="#28a745"></path>
+                            </svg>
+                            <span class="ms-2 text-success">Create Account</span>
+                          </a>
+                          <a href="logout" class="dropdown-item ai-icon">
+                            <svg class="logout-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="#dc3545"></path>
+                              <polyline points="16 17 21 12 16 7" stroke="#dc3545"></polyline>
+                              <line x1="21" y1="12" x2="9" y2="12" stroke="#dc3545"></line>
+                            </svg>
+                            <span class="ms-2 text-danger">Logout</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="deznav">
+      <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+          <li class="menu-title">Nexon APIs</li>
+          <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9.13478 20.7733V17.7156C9.13478 16.9351 9.77217 16.3023 10.5584 16.3023H13.4326C13.8102 16.3023 14.1723 16.4512 14.4393 16.7163C14.7063 16.9813 14.8563 17.3408 14.8563 17.7156V20.7733C14.8539 21.0978 14.9821 21.4099 15.2124 21.6402C15.4427 21.8705 15.756 22 16.0829 22H18.0438C18.9596 22.0024 19.8388 21.6428 20.4872 21.0008C21.1356 20.3588 21.5 19.487 21.5 18.5778V9.86686C21.5 9.13246 21.1721 8.43584 20.6046 7.96467L13.934 2.67587C12.7737 1.74856 11.1111 1.7785 9.98539 2.74698L3.46701 7.96467C2.87274 8.42195 2.51755 9.12064 2.5 9.86686V18.5689C2.5 20.4639 4.04738 22 5.95617 22H7.87229C8.55123 22 9.103 21.4562 9.10792 20.7822L9.13478 20.7733Z"
+                    fill="#90959F" />
+                </svg>
+              </div>
+              <span class="nav-text">Dashboard</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="dashboard">Dashboard</a></li>
+              <li><a href="pricing">Pricing</a></li>
+              <li><a href="changelog">Changelog</a></li>
+              <li><a href="tos">Terms Of Service</a></li>
+              <li><a href="report">Report</a></li>
+              <li><a href="docs">Docs</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="https://github.com/KensBot/nexon-bot" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 2C6.48 2 2 6.48 2 12C2 16.42 4.87 20.17 8.84 21.5C9.34 21.6 9.5 21.29 9.5 21.04V19.07C6.73 19.63 6.14 17.96 6.14 17.96C5.68 16.88 5.03 16.56 5.03 16.56C4.07 15.96 5.13 15.98 5.13 15.98C6.21 16.06 6.8 17.11 6.8 17.11C7.77 18.65 9.34 18.18 9.91 17.93C10 17.28 10.26 16.85 10.55 16.62C7.96 16.36 5.28 15.38 5.28 11.36C5.28 10.21 5.71 9.3 6.41 8.61C6.31 8.37 5.93 7.14 6.5 5.55C6.5 5.55 7.41 5.25 9.5 6.68C10.36 6.43 11.27 6.31 12.18 6.3C13.09 6.31 13.99 6.43 14.85 6.68C16.94 5.25 17.85 5.55 17.85 5.55C18.42 7.14 18.04 8.37 17.94 8.61C18.65 9.3 19.08 10.21 19.08 11.36C19.08 15.39 16.4 16.35 13.8 16.61C14.15 16.9 14.5 17.48 14.5 18.41V21.04C14.5 21.29 14.66 21.6 15.16 21.5C19.13 20.17 22 16.42 22 12C22 6.48 17.52 2 12 2Z"
+                    fill="black" />
+                </svg>
+              </div>
+              <span class="nav-text">Script</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.npmjs.com/package/@nexon.js/prime" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg fill="#EFDF0D" width="20px" height="20px" viewBox="0 0 512 512" id="Layer_1" data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <rect x="227.6" y="213.1" width="28.4" height="57.1"></rect>
+                  <path
+                    d="M0,156V327.4H142.2V356H256V327.4H512V156ZM142.2,298.9H113.8V213.2H85.3v85.7H28.4V184.6H142.2Zm142.2,0H227.5v28.6H170.6V184.6H284.4Zm199.2,0H455.2V213.2H426.8v85.7H398.4V213.2H370v85.7H313.1V184.6H483.8V298.9Z">
+                  </path>
+                </svg>
+              </div>
+              <span class="nav-text">Npmjs</span>
+            </a>
+          </li>
+          <li class="menu-title">OUR FEATURES</li>
+          <li><a href="canvas" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Canvas</span><span class="badge badge-xs style-1 badge-danger">HOT</span>
+            </a>
+          </li>
+          <li><a href="converter" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Converter</span>
+            </a>
+          </li>
+          <li><a href="downloader" class="" aria-expanded="false">
+            <div class="menu-icon">
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                <path
+                  d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                  id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <span class="nav-text">Downloader</span>
+          </a>
+        </li>
+          <li><a href="entertainment" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Entertainment</span>
+            </a>
+          </li>
+          <li><a href="games" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Games</span>
+            </a>
+          </li>
+          <li><a href="imageeffect" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Image Effect</span>
+            </a>
+          </li>
+          <li><a href="imagemaker" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Image Maker</span>
+            </a>
+          </li>
+          <li><a href="ppobindonesia" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">PPOB Indonesia</span>
+            </a>
+          </li>
+          <li><a href="primbon" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Primbon</span>
+            </a>
+          </li>
+          <li><a href="randomtext" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Random Text</span>
+            </a>
+          </li>
+          <li><a href="searching" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Searching</span>
+            </a>
+          </li>
+          <li><a href="tools" class="" aria-expanded="false">
+              <div class="menu-icon">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 10L13 10" id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                  <path
+                    d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11"
+                    id="svg-stroke" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Tools</span>
+            </a>
+          </li>
+        </ul>
+        <div class="copyright">
+          <p>Nexon APIs © <span class="current-year">2024</span> All Rights Reserved</p>
+          <p>Made with <span class="heart"></span> by Kens Ransyah</p>
+        </div>
+      </div>
+    </div>
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="element-area">
+            <div class="container-fluid pt-0 ps-0 pe-lg-4 pe-0">
+                <div class="row">
+                    <div class="col-xll-12">
+                        <div class="card dz-card" id="bootstrap-table1">
+                            <div class="card-header flex-wrap border-0">
+                                <div>
+                                    <h4 class="card-title">Features Primbom</h4>
+                                    <p class="m-0 subtitle">Jika ada error silakan laporkan ke admin</p>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="Preview" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <div class="card-body pt-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-md">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>NAME</strong></th>
+                                                        <th><strong>PARAM</strong></th>
+                                                        <th><strong>USER</strong></th>
+                                                        <th><strong>STATUS</strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="autoId"><strong>00</strong></td>
+                                                        <td>Aupan TT</td>
+                                                        <td>GET</td>
+                                                        <td>Free</td>
+                                                        <td><span class="badge light badge-success">Active</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button type="button"
+                                                                    class="btn btn-success light sharp"
+                                                                    data-bs-toggle="dropdown">
+                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24"
+                                                                        version="1.1">
+                                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                                            fill-rule="evenodd">
+                                                                            <rect x="0" y="0" width="24" height="24" />
+                                                                            <circle fill="#000000" cx="5" cy="12"
+                                                                                r="2" />
+                                                                            <circle fill="#000000" cx="12" cy="12"
+                                                                                r="2" />
+                                                                            <circle fill="#000000" cx="19" cy="12"
+                                                                                r="2" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item"
+                                                                        href="api/asupantt@query=&amp;apikey=">Check</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+      <p>Copyright © NEXON APIs by <a href="https://info.nexon.my.id" target="_blank">Kens Ransyah</a> <span
+          class="current-year">2024</span></p>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var rows = document.querySelectorAll('td#autoId');
+      rows.forEach(function(row, index) {
+        row.textContent = index + 1;
+      });
+    });
+  </script>
+  <script>
+    gsap.fromTo(
+  ".loading-page",
+  { opacity: 1 },
+  {
+    opacity: 0,
+    display: "none",
+    duration: 1.5,
+    delay: 3.5,
+  }
+);
+
+gsap.fromTo(
+  ".logo-name",
+  {
+    y: 50,
+    opacity: 0,
+  },
+  {
+    y: 0,
+    opacity: 1,
+    duration: 2,
+    delay: 0.5,
+  }
+);
+  </script>
+<script src="assets/vendor/global/global.min.js"></script>
+<script src="assets/vendor/chart-js/chart.bundle.min.js"></script>
+<script src="assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="assets/vendor/apexchart/apexchart.js"></script>
+<script src="assets/js/dashboard/dashboard-1.js"></script>
+<script src="assets/vendor/draggable/draggable.js"></script>
+<script src="assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script src="assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/vendor/datatables/js/dataTables.buttons.min.js"></script>
+<script src="assets/vendor/datatables/js/buttons.html5.min.js"></script>
+<script src="assets/vendor/datatables/js/jszip.min.js"></script>
+<script src="assets/js/plugins-init/datatables.init.js"></script>
+<script src="assets/vendor/bootstrap-datetimepicker/js/moment.js"></script>
+<script src="assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="assets/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+<script src="assets/vendor/jqvmap/js/jquery.vmap.world.js"></script>
+<script src="assets/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+<script src="assets/js/custom.min.js"></script>
+<script src="assets/js/deznav-init.js"></script>
+<script src="assets/js/demo.js"></script>
+<script src="assets/js/styleSwitcher.js"></script>
+</body>
+</html>

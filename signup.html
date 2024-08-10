@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+   <!--Title-->
+	<title>Singup | Nexon APIs</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="robots" content="index, follow">
+
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body style="background-image: url('assets/images/login.gif'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+    <div class="authincation fix-wrapper">
+        <center>
+            
+              
+                
+          </center>
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+									<div class="text-center mb-3">
+										<h1>Nexon APIs</h1>
+									</div>
+                                    <h4 class="text-center mb-4">Sign up your account</h4>
+                                    <form action="signup" method="POST">
+                                        <div class="mb-3">
+                                            <label class="mb-1 form-label">Username</label>
+                                            <input class="form-control" type="username" name="username" required="" placeholder="Your Username">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="mb-1 form-label">Email</label>
+                                            <input class="form-control" type="email" name="email" required="" placeholder="Test@gmail.com">
+                                        </div>
+                                        
+                                        <div class="mb-3 position-relative">
+                                            <label class="form-label" for="dz-password">Password</label>
+                                            <input id="passwordField1" class="form-control" type="password" name="password" placeholder="password">
+                                            <span class="show-pass eye" onclick="togglePasswordVisibility('passwordField1')">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="mb-3 position-relative">
+                                            <label class="form-label" for="dz-confirm-password">Confirm Password</label>
+                                            <input id="passwordField2" class="form-control" type="password" name="password2" placeholder="password">
+                                            <span class="show-pass eye" onclick="togglePasswordVisibility('passwordField2')">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="form-row d-flex flex-wrap justify-content-between mb-2">
+                                            <div class="form-group mb-sm-4 mb-1">
+                                                <div class="form-check custom-checkbox ms-1">
+                                                    <input type="checkbox" class="form-check-input" id="basic_checkbox_1">
+                                                    <label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
+                                                </div>
+                                            </div>
+                                            <div class="g-recaptcha" data-sitekey="6LdDoRQqAAAAANqpoFjC_fLD7eXHclvyL1602JoN"></div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Login via <a class="text-primary" href="report">Username</a></p>
+                                        <p>Login via <a class="text-primary" href="login-apikey">Apikey</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--**********************************
+	Scripts
+***********************************-->
+<!-- Required vendors -->
+<script src="assets/vendor/global/global.min.js"></script>
+<script>
+    function togglePasswordVisibility(passwordFieldId) {
+      var passwordField = document.getElementById(passwordFieldId);
+      var toggleIcon = passwordField.nextElementSibling.querySelector(".show");
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIcon.classList.remove("show");
+        toggleIcon.classList.add("hide");
+      } else {
+        passwordField.type = "password";
+        toggleIcon.classList.remove("hide");
+        toggleIcon.classList.add("show");
+      }
+    }
+  </script>
+<script src="assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="assets/js/deznav-init.js"></script>
+<script src="assets/js/custom.min.js"></script>
+<script src="assets/js/demo.js"></script>
+<script src="assets/js/styleSwitcher.js"></script>
+</body>
+</html>

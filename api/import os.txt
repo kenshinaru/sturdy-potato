@@ -1,0 +1,20 @@
+import os
+
+def rename_files_to_html():
+    # Ambil daftar semua file di direktori saat ini
+    for file in os.listdir():
+        # Cek apakah itu file (bukan direktori)
+        if os.path.isfile(file):
+            # Dapatkan nama file tanpa ekstensi
+            file_name, file_ext = os.path.splitext(file)
+            
+            # Buat nama file baru dengan ekstensi .html
+            new_file_name = file_name + ".html"
+            
+            # Ubah nama file
+            os.rename(file, new_file_name)
+            
+            print(f"File '{file}' berhasil diubah menjadi '{new_file_name}'.")
+
+# Jalankan fungsi untuk mengubah nama file
+rename_files_to_html()

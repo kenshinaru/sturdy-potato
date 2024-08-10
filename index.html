@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexon APIs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('assets/images/bg.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            animation: slideInFromLeft 1s ease-out;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+            animation: slideInFromRight 1s ease-out;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            animation: bounceIn 1.5s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .moving-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            animation: moveShapes 10s linear infinite;
+        }
+
+        .shape.circle {
+            border-radius: 50%;
+        }
+
+        .shape.square {
+            border-radius: 10%;
+        }
+
+        @keyframes moveShapes {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-1000px) rotate(360deg);
+            }
+        }
+
+        .neon-text {
+            text-shadow: 
+                0 0 5px rgba(255, 255, 255, 0.3),
+                0 0 10px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px #007bff,
+                0 0 80px #007bff,
+                0 0 120px #007bff;
+        }
+
+        .neon-button {
+            background: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin: 20px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 
+                0 0 5px #007bff,
+                0 0 10px #007bff,
+                0 0 15px #007bff,
+                0 0 20px #007bff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .neon-button:hover {
+            box-shadow: 
+                0 0 20px #007bff,
+                0 0 30px #007bff,
+                0 0 40px #007bff,
+                0 0 50px #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="moving-shapes">
+        <div class="shape circle" style="width: 100px; height: 100px; top: 80%; left: 20%;"></div>
+        <div class="shape square" style="width: 150px; height: 150px; top: 60%; left: 70%;"></div>
+        <div class="shape circle" style="width: 120px; height: 120px; top: 40%; left: 50%;"></div>
+        <div class="shape square" style="width: 80px; height: 80px; top: 20%; left: 30%;"></div>
+        <div class="shape circle" style="width: 90px; height: 90px; top: 10%; left: 10%;"></div>
+        <div class="shape square" style="width: 130px; height: 130px; top: 50%; left: 40%;"></div>
+        <div class="shape circle" style="width: 140px; height: 140px; top: 30%; left: 80%;"></div>
+    </div>
+    <div class="container">
+        <h1 class="neon-text">Welcome to Nexon APIs</h1>
+        <p>Your gateway to powerful and efficient APIs</p>
+        <button class="neon-button" onclick="redirectToDocs()">Go to Docs</button>
+    </div>
+    <script>
+        function redirectToDocs() {
+            window.location.href = '/dashboard'; // Ganti URL ini dengan URL dokumentasi Anda
+        }
+    </script>
+</body>
+</html>
